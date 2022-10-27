@@ -132,7 +132,7 @@
         <image name="starSelected" width="10" height="9"/>
         <image name="starWhite" width="10" height="9"/>
         <namedColor name="bgColor">
-            <color red="0.078431372549019607" green="0.10980392156862745" blue="0.14509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.078000001609325409" green="0.10999999940395355" blue="0.14499999582767487" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

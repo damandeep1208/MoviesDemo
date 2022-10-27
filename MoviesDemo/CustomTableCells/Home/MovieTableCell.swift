@@ -45,7 +45,7 @@ class MovieTableCell: UITableViewCell {
                     imageView.image = UIImage(named: "starSelected")
                 }
                 else {
-                    imageView.image = UIImage(named: "starWhite")
+                    imageView.image = UIImage(named: "star")
                 }
             }
         }

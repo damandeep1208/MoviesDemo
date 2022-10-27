@@ -61,6 +61,12 @@ class HomeViewController: UIViewController {
         self.viewModel?.getStaffPicks()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //update bookmarked items UI
+        tableView.reloadData()
+    }
+    
     func setupUI() {
         // Register the custom header view.
         let nib = UINib(nibName: "HomeHeaderView", bundle: nil)
@@ -89,11 +95,13 @@ class HomeViewController: UIViewController {
     }
 
     @IBAction func btnActionSearch(_ sender: Any) {
-    
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MovieSearchViewController") as! MovieSearchViewController
+        vc.allMovies = movies
+        self.show(vc, sender: self)
     }
 }
 
-//MARK: UITableView dataSource
+//MARK: UITableView dataSource and delegates
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
