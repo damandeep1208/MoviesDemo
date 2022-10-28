@@ -12,6 +12,7 @@ class FavouriteTableCell: UITableViewCell {
     @IBOutlet weak var collectionView: UICollectionView!
     
     var movies: [Movie]?
+    var bannerTapped: ((Movie) -> ())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -40,7 +41,7 @@ class FavouriteTableCell: UITableViewCell {
 extension FavouriteTableCell : UICollectionViewDelegate , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return min(self.movies?.count ?? 0, 3)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -55,5 +56,10 @@ extension FavouriteTableCell : UICollectionViewDelegate , UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: FavouriteCollectionCell.width, height: FavouriteCollectionCell.height)
 
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let model = self.movies?[indexPath.row] else { return }
+        bannerTapped?(model)
     }
 }

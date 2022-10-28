@@ -162,6 +162,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
                 return UITableViewCell()
             }
             cell.setupData(data: self.favouries)
+            cell.bannerTapped = { [weak self] movie in
+                self?.showMovieDetail(movie: movie)
+            }
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableCell") as? MovieTableCell else {
@@ -172,6 +175,20 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let sectionType = HomePageSections(rawValue: indexPath.section) else {
+            return
+        }
+        if sectionType == .favourites { return }
+        
+        showMovieDetail(movie: movies[indexPath.row])
+    }
+    
+    func showMovieDetail(movie: Movie) {
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MovieDetailViewController") as! MovieDetailViewController
+        vc.movie = movie
+        self.present(vc, animated: true, completion: nil)
+    }
     
 }
 
