@@ -688,6 +688,7 @@
                                             <rect key="frame" x="297" y="5" width="52" height="64"/>
                                             <inset key="contentEdgeInsets" minX="20" minY="20" maxX="15" maxY="20"/>
                                             <state key="normal" image="bookmarkBlack"/>
+                                            <state key="selected" image="bookmarkBlackSelected"/>
                                             <connections>
                                                 <action selector="bookmarkPressed:" destination="Tkz-Jp-pUq" eventType="touchUpInside" id="pvp-Fe-55d"/>
                                             </connections>
@@ -1215,6 +1216,7 @@
     <resources>
         <image name="backWhite" width="15" height="15"/>
         <image name="bookmarkBlack" width="17" height="24"/>
+        <image name="bookmarkBlackSelected" width="17" height="24"/>
         <image name="close" width="30" height="30"/>
         <image name="ic_search" width="21" height="21"/>
         <image name="placeholderNoMovie" width="48" height="49"/>

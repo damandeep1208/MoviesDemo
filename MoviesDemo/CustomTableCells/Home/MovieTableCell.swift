@@ -16,6 +16,7 @@ class MovieTableCell: UITableViewCell {
     @IBOutlet weak var ratingView: UIStackView!
     
     var movieId: Int?
+    var bookmarkUpdated: (() -> ())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -62,5 +63,6 @@ class MovieTableCell: UITableViewCell {
             DataStorage.addToBookMark(movieId: movieId)
             sender.isSelected = true
         }
+        bookmarkUpdated?()
     }
 }

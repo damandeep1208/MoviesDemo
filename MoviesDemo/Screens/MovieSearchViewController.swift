@@ -143,6 +143,9 @@ extension MovieSearchViewController: UITableViewDataSource, UITableViewDelegate 
             return UITableViewCell()
         }
         cell.setupData(model: self.movies[indexPath.row])
+        cell.bookmarkUpdated = {
+            NotificationCenter.default.post(Notification(name: .bookmarkUpdated))
+        }
         return cell
     }
     

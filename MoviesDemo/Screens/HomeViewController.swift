@@ -59,12 +59,8 @@ class HomeViewController: UIViewController {
         self.viewModel = HomeViewModel()
         self.viewModel?.getMovies()
         self.viewModel?.getStaffPicks()
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        //update bookmarked items UI
-        tableView.reloadData()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateBookmars), name: Notification.Name.bookmarkUpdated, object: nil)
     }
     
     func setupUI() {
@@ -92,6 +88,11 @@ class HomeViewController: UIViewController {
             imageView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+    
+    @objc func updateBookmars() {
+        //update bookmarked items UI
+        tableView.reloadData()
     }
 
     @IBAction func btnActionSearch(_ sender: Any) {

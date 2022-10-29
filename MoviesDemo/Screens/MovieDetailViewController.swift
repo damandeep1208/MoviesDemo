@@ -10,6 +10,7 @@ import UIKit
 class MovieDetailViewController: UIViewController {
     
     var movie: Movie!
+    var contentWidth: CGFloat = 0
     
     @IBOutlet weak var btnBookmark: UIButton!
     @IBOutlet weak var imgMovie: UIImageView!
@@ -38,6 +39,16 @@ class MovieDetailViewController: UIViewController {
         super.viewDidLayoutSubviews()
         let height = cvGeneres.collectionViewLayout.collectionViewContentSize.height
         constraintHeightCVGeneres.constant = height
+        
+
+        if contentWidth > self.cvGeneres.frame.size.width {
+            cvGeneres.contentInset = UIEdgeInsets.zero
+        } else {
+            cvGeneres.contentInset = UIEdgeInsets(top: 0,
+                                                  left: (self.cvGeneres.frame.size.width - contentWidth) / 2.0,
+                                        bottom: 0,
+                                        right: 0)
+        }
 
     }
     
@@ -74,7 +85,6 @@ class MovieDetailViewController: UIViewController {
         let hours = runtime / 60
         let minutes = (runtime % 60)
         lblReleaseDate.text = "\(releaseDate) · \(hours)h \(minutes)m"
-        
         //movie details
         lblTitle.text = movie.title
         lblYear.text = "(\(String(movie.releaseDate?.prefix(4) ?? "")))"
@@ -97,12 +107,26 @@ class MovieDetailViewController: UIViewController {
         if let revenue = formatter.string(from: (movie.revenue ?? 0) as NSNumber) {
             lblRevenue.text = revenue
         }
-        lblOriginalLanguage.text = movie.language
-        lblRating.text = "\(String(format: "%.2d", movie.rating ?? 0)) (\(movie.reviews ?? 0))"
+        let locale =  NSLocale(localeIdentifier: movie.language ?? "en")
+        let fullName = locale.localizedString(forLanguageCode: movie.language ?? "en")!
+        lblOriginalLanguage.text = fullName
+        lblRating.text = "\(String(format: "%.2f", movie.rating ?? 0)) (\(movie.reviews ?? 0))"
+        
+        btnBookmark.isSelected = DataStorage.isBookMarked(movieId: self.movie.id!)
+
     }
     
-    @IBAction func bookmarkPressed(_ sender: Any) {
-    
+    @IBAction func bookmarkPressed(_ sender: UIButton) {
+        guard let movieId = self.movie.id else { return }
+        if DataStorage.isBookMarked(movieId: movieId) {
+            DataStorage.removeFromBookMark(movieId: movieId)
+            sender.isSelected = false
+        }
+        else {
+            DataStorage.addToBookMark(movieId: movieId)
+            sender.isSelected = true
+        }
+        NotificationCenter.default.post(Notification(name: .bookmarkUpdated))
     }
     
     @IBAction func closePressed(_ sender: Any) {
@@ -140,6 +164,10 @@ extension MovieDetailViewController : UICollectionViewDelegate , UICollectionVie
         if collectionView == cvGeneres {
             let generText = movie.genres?[indexPath.row] ?? ""
             let size = generText.size(withAttributes:[.font: UIFont.systemFont(ofSize: 14, weight: .light)])
+            if indexPath.row == 0 {
+                contentWidth = 0
+            }
+            contentWidth += size.width + 22
             return CGSize(width: size.width, height: 21)
         }
         return CGSize(width: 100, height: 150)
