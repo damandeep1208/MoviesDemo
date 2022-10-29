@@ -9,9 +9,11 @@ import UIKit
 
 class MovieDetailViewController: UIViewController {
     
+    //MARK:- Variables
     var movie: Movie!
     var contentWidth: CGFloat = 0
     
+    //MARK:- Outlets
     @IBOutlet weak var btnBookmark: UIButton!
     @IBOutlet weak var imgMovie: UIImageView!
     @IBOutlet weak var imgDirector: UIImageView!
@@ -30,6 +32,7 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var constraintHeightCVGeneres: NSLayoutConstraint!
     @IBOutlet weak var constraintHeightCVActors: NSLayoutConstraint!
     
+    //MARK:- View Hierarchy
     override func viewDidLoad() {
         super.viewDidLoad()
         setupData()
@@ -37,21 +40,10 @@ class MovieDetailViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        let height = cvGeneres.collectionViewLayout.collectionViewContentSize.height
-        constraintHeightCVGeneres.constant = height
-        
-
-        if contentWidth > self.cvGeneres.frame.size.width {
-            cvGeneres.contentInset = UIEdgeInsets.zero
-        } else {
-            cvGeneres.contentInset = UIEdgeInsets(top: 0,
-                                                  left: (self.cvGeneres.frame.size.width - contentWidth) / 2.0,
-                                        bottom: 0,
-                                        right: 0)
-        }
-
+        updateLayout()
     }
     
+    //MARK:- setup UI
     func setupData() {
         
         //movie image
@@ -116,6 +108,19 @@ class MovieDetailViewController: UIViewController {
 
     }
     
+    func updateLayout(){
+        let height = cvGeneres.collectionViewLayout.collectionViewContentSize.height
+        constraintHeightCVGeneres.constant = height
+        
+        //center align generes
+        if contentWidth > self.cvGeneres.frame.size.width {
+            cvGeneres.contentInset = UIEdgeInsets.zero
+        } else {
+            cvGeneres.contentInset = UIEdgeInsets(top: 0, left: (self.cvGeneres.frame.size.width - contentWidth) / 2.0, bottom: 0, right: 0)
+        }
+    }
+    
+    //MARK:- Button Actions
     @IBAction func bookmarkPressed(_ sender: UIButton) {
         guard let movieId = self.movie.id else { return }
         if DataStorage.isBookMarked(movieId: movieId) {

@@ -7,43 +7,13 @@
 
 import UIKit
 
-enum HomePageSections: Int {
-    case favourites
-    case staffPicks
-    
-    func title1() -> String {
-        switch self {
-        case .favourites:
-            return "YOUR"
-        case .staffPicks:
-            return "OUR"
-        }
-    }
-    
-    func title2() -> String {
-        switch self {
-        case .favourites:
-            return "FAVORITES"
-        case .staffPicks:
-            return "STAFF PICKS"
-        }
-    }
-    
-    func textColor() -> UIColor {
-        switch self {
-        case .favourites:
-            return UIColor(named: "bgColor") ?? .black
-        default:
-            return .white
-        }
-    }
-      
-}
-
 class HomeViewController: UIViewController {
 
+    //MARK:- Outlets
     @IBOutlet var tableHeaderView: UIView!
     @IBOutlet weak var tableView: UITableView!
+    
+    //MARK:- Variables
     var favouries: [Movie] = []
     var movies: [Movie] = []
     var staffPicks: [Movie] = []
@@ -53,6 +23,7 @@ class HomeViewController: UIViewController {
         }
     }
     
+    //MARK:- View Hierarchy
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -64,6 +35,7 @@ class HomeViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateBookmars), name: Notification.Name.bookmarkUpdated, object: nil)
     }
     
+    //MARK:- UI setup
     func setupUI() {
         // Register the custom header view.
         let nib = UINib(nibName: "HomeHeaderView", bundle: nil)
@@ -91,6 +63,7 @@ class HomeViewController: UIViewController {
         ])
     }
     
+    //MARK:- Functionalities
     @objc func updateBookmars() {
         //update bookmarked items UI
         getSavedFavorites()
@@ -101,15 +74,28 @@ class HomeViewController: UIViewController {
         let savedFavourites = DataStorage.bookmarkedItems()
         favouries = movies.filter({item  in savedFavourites.contains(item.id!) })
     }
-
-    @IBAction func btnActionSearch(_ sender: Any) {
+    
+    //MARK:- Segues
+    func showSearchScreen(fav: Bool, movies: [Movie]) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MovieSearchViewController") as! MovieSearchViewController
         vc.allMovies = movies
+        vc.searchFav = fav
         self.show(vc, sender: self)
+    }
+    
+    func showMovieDetail(movie: Movie) {
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MovieDetailViewController") as! MovieDetailViewController
+        vc.movie = movie
+        self.present(vc, animated: true, completion: nil)
+    }
+
+    //MARK:- Button Actions
+    @IBAction func btnActionSearch(_ sender: Any) {
+       showSearchScreen(fav: false, movies: movies)
     }
 }
 
-//MARK: UITableView dataSource and delegates
+//MARK:- UITableView dataSource and delegates
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -178,6 +164,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             cell.bannerTapped = { [weak self] movie in
                 self?.showMovieDetail(movie: movie)
             }
+            cell.seeAllFavouritesTapped = { [weak self] in
+                self?.showSearchScreen(fav: true, movies: self?.favouries ?? [])
+            }
             return cell
         default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableCell") as? MovieTableCell else {
@@ -195,17 +184,12 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         }
         if sectionType == .favourites { return }
         
-        showMovieDetail(movie: movies[indexPath.row])
-    }
-    
-    func showMovieDetail(movie: Movie) {
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MovieDetailViewController") as! MovieDetailViewController
-        vc.movie = movie
-        self.present(vc, animated: true, completion: nil)
+        showMovieDetail(movie: staffPicks[indexPath.row])
     }
     
 }
 
+//MARK:- APIs response handling
 extension HomeViewController: HomeViewModelProtocol {
     func handleViewModelOutput(_ output: HomeViewModelOutput) {
         switch output {

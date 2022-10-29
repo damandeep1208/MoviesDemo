@@ -9,12 +9,14 @@ import UIKit
 
 class MovieSearchViewController: UIViewController {
     
+    //MARK:- Outlets
     @IBOutlet weak var tfSearch: UITextField!
     @IBOutlet var ratingFilterViews: [UIStackView]!
     @IBOutlet var ratingFilterButtons: [UIButton]!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var viewNoMovie: UIView!
     
+    //MARK:- Properties
     var movies:[Movie] = [] {
         didSet {
             //update UI when movies are filtered
@@ -23,15 +25,18 @@ class MovieSearchViewController: UIViewController {
     }
     var allMovies:[Movie] = []
     var selectedRating: Int?
+    var searchFav: Bool = false
     
+    //MARK:- View Hierarchy
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
+    //MARK:- setup UI
     func setupUI() {
         tfSearch.attributedPlaceholder = NSAttributedString(
-            string: "Search all movies",
+            string: searchFav ? "Search all favorites" : "Search all movies",
             attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.4)]
         )
         
@@ -44,6 +49,7 @@ class MovieSearchViewController: UIViewController {
         self.movies = allMovies
     }
     
+    //MARK:- Functionalities
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         if sender.state == .ended {
             // Do your thang here!
@@ -80,6 +86,7 @@ class MovieSearchViewController: UIViewController {
         viewNoMovie.isHidden = !movies.isEmpty
     }
     
+    //MARK:- Button Actions
     @IBAction func backPressed(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -108,6 +115,7 @@ class MovieSearchViewController: UIViewController {
     }
 }
 
+//MARK:- Search text field delegates
 extension MovieSearchViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

@@ -5,7 +5,39 @@
 //  Created by Damandeep Kaur on 10/26/22.
 //
 
-import Foundation
+import UIKit
+
+enum HomePageSections: Int {
+    case favourites
+    case staffPicks
+    
+    func title1() -> String {
+        switch self {
+        case .favourites:
+            return "YOUR"
+        case .staffPicks:
+            return "OUR"
+        }
+    }
+    
+    func title2() -> String {
+        switch self {
+        case .favourites:
+            return "FAVORITES"
+        case .staffPicks:
+            return "STAFF PICKS"
+        }
+    }
+    
+    func textColor() -> UIColor {
+        switch self {
+        case .favourites:
+            return UIColor(named: "bgColor") ?? .black
+        default:
+            return .white
+        }
+    }
+}
 
 protocol HomeViewModelProtocol {
     func handleViewModelOutput(_ output: HomeViewModelOutput)

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SeeAllCollectionCell" id="gTV-IL-0wX" customClass="SeeAllCollectionCell" customModule="MoviesDemo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="172" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="172" height="50"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ruz-ZG-Igj">
+                        <rect key="frame" x="40.5" y="8.5" width="91" height="33"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="33" id="RNq-PS-uRg"/>
+                            <constraint firstAttribute="width" constant="91" id="Zal-Lb-Sjo"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="0.0" height="40"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="18"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vTN-Rq-a0E">
+                        <rect key="frame" x="40.5" y="8.5" width="91" height="33"/>
+                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="14"/>
+                        <inset key="titleEdgeInsets" minX="-35" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <inset key="imageEdgeInsets" minX="65" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="See all" image="arrowRight">
+                            <color key="titleColor" name="bgColor"/>
+                        </state>
+                        <connections>
+                            <action selector="seeAllTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="mHq-GA-5ma"/>
+                        </connections>
+                    </button>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="Ruz-ZG-Igj" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="2Qa-ue-yyQ"/>
+                <constraint firstItem="vTN-Rq-a0E" firstAttribute="trailing" secondItem="Ruz-ZG-Igj" secondAttribute="trailing" id="Pbh-l2-X70"/>
+                <constraint firstItem="vTN-Rq-a0E" firstAttribute="leading" secondItem="Ruz-ZG-Igj" secondAttribute="leading" id="XCa-yN-1Bj"/>
+                <constraint firstItem="Ruz-ZG-Igj" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="bKP-An-oAo"/>
+                <constraint firstItem="vTN-Rq-a0E" firstAttribute="bottom" secondItem="Ruz-ZG-Igj" secondAttribute="bottom" id="iKo-9S-v3j"/>
+                <constraint firstItem="vTN-Rq-a0E" firstAttribute="top" secondItem="Ruz-ZG-Igj" secondAttribute="top" id="tP9-nr-qpu"/>
+            </constraints>
+            <size key="customSize" width="172" height="50"/>
+            <point key="canvasLocation" x="228.98550724637684" y="99.776785714285708"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="arrowRight" width="13" height="13"/>
+        <namedColor name="bgColor">
+            <color red="0.078431372549019607" green="0.10980392156862745" blue="0.14509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

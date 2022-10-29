@@ -13,6 +13,7 @@ class FavouriteTableCell: UITableViewCell {
     
     var movies: [Movie]?
     var bannerTapped: ((Movie) -> ())?
+    var seeAllFavouritesTapped: EmptyBlock?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,6 +30,10 @@ class FavouriteTableCell: UITableViewCell {
     func setupUI() {
         let nib = UINib(nibName: "FavouriteCollectionCell", bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: "FavouriteCollectionCell")
+        
+        let nib1 = UINib(nibName: "SeeAllCollectionCell", bundle: nil)
+        collectionView.register(nib1, forCellWithReuseIdentifier: "SeeAllCollectionCell")
+        
     }
     
     func setupData(data: [Movie]) {
@@ -41,10 +46,17 @@ class FavouriteTableCell: UITableViewCell {
 extension FavouriteTableCell : UICollectionViewDelegate , UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return min(self.movies?.count ?? 0, 3)
+        return min(self.movies?.count ?? 0, 4)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.row == 3 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SeeAllCollectionCell", for: indexPath) as! SeeAllCollectionCell
+            cell.seeAllTapped = { [weak self] in
+                self?.seeAllFavouritesTapped?()
+            }
+            return cell
+        }
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteCollectionCell", for: indexPath) as? FavouriteCollectionCell else {
             return UICollectionViewCell()
         }
@@ -59,6 +71,9 @@ extension FavouriteTableCell : UICollectionViewDelegate , UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.row == 3 {
+            return
+        }
         guard let model = self.movies?[indexPath.row] else { return }
         bannerTapped?(model)
     }
