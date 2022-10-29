@@ -16,7 +16,6 @@ class MovieTableCell: UITableViewCell {
     @IBOutlet weak var ratingView: UIStackView!
     
     var movieId: Int?
-    var bookmarkUpdated: (() -> ())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,7 +28,7 @@ class MovieTableCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setupData(model: Movie) {
+    func setupData(model: Movie, whiteMode: Bool) {
         self.movieId = model.id
         lblTitle.text = model.title
         lblReleaseYear.text = String(model.releaseDate?.prefix(4) ?? "")
@@ -46,11 +45,15 @@ class MovieTableCell: UITableViewCell {
                     imageView.image = UIImage(named: "starSelected")
                 }
                 else {
-                    imageView.image = UIImage(named: "star")
+                    imageView.image = whiteMode ? UIImage(named: "starGrey") : UIImage(named: "star")
                 }
             }
         }
         btnBookmark.isSelected = DataStorage.isBookMarked(movieId: model.id!)
+        lblTitle.textColor =  whiteMode ? UIColor(named: "bgColor") : UIColor.white
+        lblReleaseYear.textColor =  whiteMode ? UIColor(named: "bgColor") : UIColor.white
+        btnBookmark.setImage(UIImage(named: whiteMode ? "bookmarkBlack" : "bookmarkWhite"), for: .normal)
+        btnBookmark.setImage(UIImage(named: whiteMode ? "bookmarkBlackSelected" : "bookmarkWhiteSelected"), for: .selected)
     }
     
     @IBAction func addToBookmark(_ sender: UIButton) {
@@ -63,6 +66,6 @@ class MovieTableCell: UITableViewCell {
             DataStorage.addToBookMark(movieId: movieId)
             sender.isSelected = true
         }
-        bookmarkUpdated?()
+        NotificationCenter.default.post(Notification(name: .bookmarkUpdated))
     }
 }

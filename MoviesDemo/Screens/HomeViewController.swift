@@ -32,7 +32,7 @@ enum HomePageSections: Int {
     func textColor() -> UIColor {
         switch self {
         case .favourites:
-            return .black
+            return UIColor(named: "bgColor") ?? .black
         default:
             return .white
         }
@@ -46,6 +46,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var favouries: [Movie] = []
     var movies: [Movie] = []
+    var staffPicks: [Movie] = []
     var viewModel: HomeViewModel? {
         didSet {
             self.viewModel?.delegate = self
@@ -92,7 +93,13 @@ class HomeViewController: UIViewController {
     
     @objc func updateBookmars() {
         //update bookmarked items UI
+        getSavedFavorites()
         tableView.reloadData()
+    }
+    
+    func getSavedFavorites() {
+        let savedFavourites = DataStorage.bookmarkedItems()
+        favouries = movies.filter({item  in savedFavourites.contains(item.id!) })
     }
 
     @IBAction func btnActionSearch(_ sender: Any) {
@@ -106,10 +113,7 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        var count = 0
-        if !favouries.isEmpty {count += 1 }
-        if !movies.isEmpty { count += 1 }
-        return count
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -120,7 +124,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         case .favourites:
             return favouries.count > 0 ? 1 : 0
         default:
-            return movies.count
+            return staffPicks.count
         }
     }
     
@@ -129,12 +133,20 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         guard let sectionType = HomePageSections(rawValue: section) else {
             return sectionHeaderView
         }
-        sectionHeaderView.configureFor(type: sectionType)
+        sectionHeaderView.configureFor(type: sectionType, favIsEmpty: favouries.isEmpty)
         return sectionHeaderView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return HomeHeaderView.height
+        guard let sectionType = HomePageSections(rawValue: section) else {
+            return 0
+        }
+        switch sectionType {
+        case .favourites:
+            return favouries.count > 0 ? HomeHeaderView.height : 0
+        default:
+            return staffPicks.count > 0 ? HomeHeaderView.height : 0
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -171,7 +183,8 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableCell") as? MovieTableCell else {
                 return UITableViewCell()
             }
-            cell.setupData(model: self.movies[indexPath.row])
+            cell.backgroundColor = UIColor.clear
+            cell.setupData(model: self.staffPicks[indexPath.row], whiteMode: favouries.isEmpty && indexPath.row == 0)
             return cell
         }
     }
@@ -197,12 +210,13 @@ extension HomeViewController: HomeViewModelProtocol {
     func handleViewModelOutput(_ output: HomeViewModelOutput) {
         switch output {
         case .getMoviesResponse(let response):
-            self.favouries = response ?? []
+            self.movies = response ?? []
+            getSavedFavorites()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         case .getStaffPicksResponse(let response):
-            self.movies = response ?? []
+            self.staffPicks = response ?? []
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }

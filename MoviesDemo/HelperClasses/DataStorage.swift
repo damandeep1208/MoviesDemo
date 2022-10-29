@@ -34,4 +34,8 @@ class DataStorage {
         }
         return false
     }
+    
+    static func bookmarkedItems() -> [Int] {
+        return UserDefaults.standard.value(forKey: "bookmarkedItems") as? [Int] ?? []
+    }
 }

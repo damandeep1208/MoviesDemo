@@ -142,10 +142,7 @@ extension MovieSearchViewController: UITableViewDataSource, UITableViewDelegate 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableCell") as? MovieTableCell else {
             return UITableViewCell()
         }
-        cell.setupData(model: self.movies[indexPath.row])
-        cell.bookmarkUpdated = {
-            NotificationCenter.default.post(Notification(name: .bookmarkUpdated))
-        }
+        cell.setupData(model: self.movies[indexPath.row], whiteMode: false)
         return cell
     }
     

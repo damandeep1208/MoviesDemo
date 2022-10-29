@@ -22,10 +22,16 @@ class HomeHeaderView: UITableViewHeaderFooterView {
     @IBOutlet weak var lblHeaderTitle1: UILabel!
     @IBOutlet weak var lblHeaderTitle2: UILabel!
     
-    func configureFor(type: HomePageSections) {
+    func configureFor(type: HomePageSections, favIsEmpty: Bool) {
         self.lblHeaderTitle1.text = type.title1()
         self.lblHeaderTitle2.text = type.title2()
-        self.lblHeaderTitle1.textColor = type.textColor()
-        self.lblHeaderTitle2.textColor = type.textColor()
+        if  favIsEmpty {
+            lblHeaderTitle1.textColor = HomePageSections.favourites.textColor()
+            lblHeaderTitle2.textColor = HomePageSections.favourites.textColor()
+        }
+        else {
+            self.lblHeaderTitle1.textColor = type.textColor()
+            self.lblHeaderTitle2.textColor = type.textColor()
+        }
     }
 }
