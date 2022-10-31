@@ -37,7 +37,7 @@ class HomeViewController: UIViewController {
     
     //MARK:- UI setup
     func setupUI() {
-        // Register the custom header view.
+        // Register the custom header view and table cells
         let nib = UINib(nibName: "HomeHeaderView", bundle: nil)
         tableView.register(nib, forHeaderFooterViewReuseIdentifier: "HomeHeaderView")
         
@@ -49,7 +49,8 @@ class HomeViewController: UIViewController {
         
         tableView.tableHeaderView = tableHeaderView
         
-        let image = UIImage(named: "Backgroundbg")
+        //add background imageview sticked with header
+        let image = UIImage.Backgroundbg
         let imageView = UIImageView(image: image!)
         self.view.addSubview(imageView)
         self.view.sendSubviewToBack(imageView)

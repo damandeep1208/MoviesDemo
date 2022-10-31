@@ -8,6 +8,8 @@
 import UIKit
 
 @IBDesignable class GradientView: UIView {
+    
+    //MARK:- Properties
     @IBInspectable var firstColor: UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
     @IBInspectable var secondColor: UIColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
     
@@ -30,7 +32,7 @@ import UIKit
         return layer
     }()
 
-    //MARK: -
+    //MARK: - View Hierarchy
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -54,7 +56,7 @@ import UIKit
         updateGradientFrame()
     }
 
-    //MARK: -
+    //MARK: - Functionalities
 
     func applyGradient() {
         updateGradientDirection()

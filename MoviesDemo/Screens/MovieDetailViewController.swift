@@ -56,10 +56,10 @@ class MovieDetailViewController: UIViewController {
         for view in viewRating.subviews {
             if let imageView = view as? UIImageView {
                 if imageView.tag <= rating {
-                    imageView.image = UIImage(named: "starSelected")
+                    imageView.image = UIImage.starSelected
                 }
                 else {
-                    imageView.image = UIImage(named: "starGrey")
+                    imageView.image = UIImage.starGrey
                 }
             }
         }

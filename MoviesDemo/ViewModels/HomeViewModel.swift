@@ -32,7 +32,7 @@ enum HomePageSections: Int {
     func textColor() -> UIColor {
         switch self {
         case .favourites:
-            return UIColor(named: "bgColor") ?? .black
+            return UIColor.bgColor ?? .black
         default:
             return .white
         }

@@ -63,7 +63,7 @@ class MovieSearchViewController: UIViewController {
     
     func resetFilters() {
         for view in ratingFilterViews {
-            view.subviews.forEach({ ($0 as! UIImageView).image = UIImage(named: "starWhite")})
+            view.subviews.forEach({ ($0 as! UIImageView).image = UIImage.starWhite})
         }
     }
     
@@ -103,7 +103,7 @@ class MovieSearchViewController: UIViewController {
             ratingFilterButtons.forEach({$0.isSelected = false})
             //update selected rating UI
             guard let view = ratingFilterViews.first(where: { $0.tag == tag }) else { return }
-            view.subviews.forEach({ ($0 as! UIImageView).image = UIImage(named: "starSelected")})
+            view.subviews.forEach({ ($0 as! UIImageView).image = UIImage.starSelected})
             //store button selected state
             sender.isSelected = true
             //save selected rating to use while searching text and selected rating both

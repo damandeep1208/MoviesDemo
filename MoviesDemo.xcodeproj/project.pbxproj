@@ -28,6 +28,7 @@
 		9154FA7F290D20E600EEA428 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9154FA7E290D20E600EEA428 /* Notifications.swift */; };
 		9154FA88290D38EF00EEA428 /* SeeAllCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9154FA86290D38EF00EEA428 /* SeeAllCollectionCell.swift */; };
 		9154FA89290D38EF00EEA428 /* SeeAllCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9154FA87290D38EF00EEA428 /* SeeAllCollectionCell.xib */; };
+		917B073C290FEAA0002B330F /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917B073B290FEAA0002B330F /* UIExtensions.swift */; };
 		91E18B9D2903D70B00D553CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E18B9C2903D70B00D553CA /* AppDelegate.swift */; };
 		91E18B9F2903D70B00D553CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E18B9E2903D70B00D553CA /* SceneDelegate.swift */; };
 		91E18BA12903D70B00D553CA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E18BA02903D70B00D553CA /* HomeViewController.swift */; };
@@ -83,6 +84,7 @@
 		9154FA7E290D20E600EEA428 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		9154FA86290D38EF00EEA428 /* SeeAllCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeAllCollectionCell.swift; sourceTree = "<group>"; };
 		9154FA87290D38EF00EEA428 /* SeeAllCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeeAllCollectionCell.xib; sourceTree = "<group>"; };
+		917B073B290FEAA0002B330F /* UIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		91E18B992903D70B00D553CA /* MoviesDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoviesDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91E18B9C2903D70B00D553CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91E18B9E2903D70B00D553CA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 				914D522729096D2200FAFCE4 /* DataStorage.swift */,
 				914E5725290C040400B0092C /* GradientView.swift */,
 				9154FA7E290D20E600EEA428 /* Notifications.swift */,
+				917B073B290FEAA0002B330F /* UIExtensions.swift */,
 			);
 			path = HelperClasses;
 			sourceTree = "<group>";
@@ -553,6 +556,7 @@
 				9154FA7F290D20E600EEA428 /* Notifications.swift in Sources */,
 				9154FA88290D38EF00EEA428 /* SeeAllCollectionCell.swift in Sources */,
 				91E18BD12903DA6E00D553CA /* UIViewExtensions.swift in Sources */,
+				917B073C290FEAA0002B330F /* UIExtensions.swift in Sources */,
 				91E18B9F2903D70B00D553CA /* SceneDelegate.swift in Sources */,
 				914D52052909581300FAFCE4 /* Movie.swift in Sources */,
 				914E571E290C02E300B0092C /* GenresCollectionCell.swift in Sources */,

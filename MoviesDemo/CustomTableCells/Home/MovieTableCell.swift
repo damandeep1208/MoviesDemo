@@ -42,18 +42,18 @@ class MovieTableCell: UITableViewCell {
         for view in ratingView.subviews {
             if let imageView = view as? UIImageView {
                 if imageView.tag <= rating {
-                    imageView.image = UIImage(named: "starSelected")
+                    imageView.image = UIImage.starSelected
                 }
                 else {
-                    imageView.image = whiteMode ? UIImage(named: "starGrey") : UIImage(named: "star")
+                    imageView.image = whiteMode ? UIImage.starGrey : UIImage.star
                 }
             }
         }
         btnBookmark.isSelected = DataStorage.isBookMarked(movieId: model.id!)
-        lblTitle.textColor =  whiteMode ? UIColor(named: "bgColor") : UIColor.white
-        lblReleaseYear.textColor =  whiteMode ? UIColor(named: "bgColor") : UIColor.white
-        btnBookmark.setImage(UIImage(named: whiteMode ? "bookmarkBlack" : "bookmarkWhite"), for: .normal)
-        btnBookmark.setImage(UIImage(named: whiteMode ? "bookmarkBlackSelected" : "bookmarkWhiteSelected"), for: .selected)
+        lblTitle.textColor =  whiteMode ? UIColor.bgColor : UIColor.white
+        lblReleaseYear.textColor =  whiteMode ? UIColor.bgColor : UIColor.white
+        btnBookmark.setImage(whiteMode ? UIImage.bookmarkBlack : UIImage.bookmarkWhite, for: .normal)
+        btnBookmark.setImage(whiteMode ? UIImage.bookmarkBlackSelected : UIImage.bookmarkWhiteSelected, for: .selected)
     }
     
     @IBAction func addToBookmark(_ sender: UIButton) {
